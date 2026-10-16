@@ -531,5 +531,6 @@ $('fReset').onclick=()=>{['fCaja','fTipo','fFiscal','fDow'].forEach(id=>$(id).va
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>R[cur]());
 render();
 </script>
+<script>(function(){try{var h=new URLSearchParams(location.hash.slice(1)),b=h.get('base'),s=document.getElementById('fBase');if(b&&s&&[...s.options].some(o=>o.value===b)){s.value=b;s.dispatchEvent(new Event('change'));}}catch(e){}})();</script>
 </body>
 </html>

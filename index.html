@@ -20,7 +20,7 @@
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--fg);font-family:Barlow,system-ui,sans-serif;font-size:15px}
 .wrap{max-width:1400px;margin:0 auto;padding:20px clamp(12px,3vw,32px) 40px;display:flex;flex-direction:column;gap:18px}
-.hero{display:flex;align-items:center;gap:28px;background:var(--green);color:var(--gold);border-radius:10px;padding:22px 30px;flex-wrap:wrap;background-image:radial-gradient(circle at 85% -20%,rgba(212,176,106,.12),transparent 55%)}
+.hero{display:flex;align-items:center;gap:24px 32px;background:var(--green);color:var(--gold);border-radius:10px;padding:22px 30px;flex-wrap:wrap;background-image:radial-gradient(circle at 85% -20%,rgba(212,176,106,.12),transparent 55%)}
 .logo{width:150px;flex:0 0 auto;color:var(--gold)}
 .hero-t{flex:1 1 18rem;min-width:0}
 .hero h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:2.1rem;letter-spacing:.01em;margin:0 0 6px;color:#efe3c4}
@@ -32,11 +32,15 @@ html,body{margin:0;background:var(--bg);color:var(--fg);font-family:Barlow,syste
 .seg button+button{border-left:1px solid var(--line)}
 .seg button[aria-pressed=true]{background:var(--green-2);color:var(--gold)}
 .per{color:var(--muted);font-size:.85rem}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:14px}
-.kpi,.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 20px}
-.kpi{border-top:3px solid var(--gold)}
+.kpis{flex:1 1 32rem;min-width:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,11rem),1fr));gap:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+.hero .kpi{background:rgba(255,255,255,.04);border:1px solid rgba(198,163,90,.28);border-top:3px solid var(--gold);border-radius:10px;padding:14px 16px;color:#efe3c4}
+.hero .kpi .k,.hero .kpi .ks{color:#cdbb8f}
+.kpi-lk{text-decoration:none;cursor:pointer;transition:background .15s,border-color .15s}
+.kpi-lk:hover{background:rgba(198,163,90,.12);border-color:var(--gold)}
+.kpi .ar{color:var(--gold)}
 .kpi .k{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-.kpi .kv{font-family:'Cormorant Garamond',Georgia,serif;font-size:2.1rem;font-weight:500;margin:4px 0 2px;font-variant-numeric:lining-nums tabular-nums}
+.kpi .kv{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.9rem;font-weight:500;margin:4px 0 2px;font-variant-numeric:lining-nums tabular-nums}
 .kpi .ks{font-size:.85rem;color:var(--muted)}
 .card h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:1.45rem;margin:0 0 4px}
 .note{font-size:.82rem;color:var(--muted);margin:0 0 14px}
@@ -79,10 +83,12 @@ footer{font-size:.78rem;color:var(--muted);text-align:center}
       <text x="100" y="110" font-size="84" font-style="italic" font-family="'Cormorant Garamond', Didot, Georgia, serif" fill="currentColor">A</text>
       <text x="110" y="140" text-anchor="middle" font-size="15" letter-spacing="2.2" font-family="'Cormorant Garamond', Georgia, serif" font-weight="600" fill="currentColor">DISTRITO ALEM</text>
     </svg>
-    <div class="hero-t">
-      <h1>Estado de resultados</h1>
-      <p class="take" id="takeaway"></p>
-    </div>
+    <section class="kpis">
+      <a class="kpi kpi-lk" id="kpi-ventas" title="Abrir el tablero de ventas"><div class="k">Ventas <span class="ar">↗</span></div><div class="kv" id="k-ventas"></div><div class="ks" id="k-per"></div></a>
+      <div class="kpi"><div class="k">Resultado bruto</div><div class="kv" id="k-bruto"></div><div class="ks" id="k-bruto-p"></div></div>
+      <div class="kpi"><div class="k">Otros gastos</div><div class="kv" id="k-otros"></div><div class="ks" id="k-otros-p"></div></div>
+      <div class="kpi"><div class="k">Resultado neto</div><div class="kv" id="k-neto"></div><div class="ks" id="k-neto-p"></div></div>
+    </section>
   </header>
 
   <div class="bar">
@@ -94,16 +100,10 @@ footer{font-size:.78rem;color:var(--muted);text-align:center}
     <span class="per" id="periodo"></span>
   </div>
 
-  <section class="kpis">
-    <div class="kpi"><div class="k">Ventas</div><div class="kv" id="k-ventas"></div><div class="ks" id="k-per"></div></div>
-    <div class="kpi"><div class="k">Resultado bruto</div><div class="kv" id="k-bruto"></div><div class="ks" id="k-bruto-p"></div></div>
-    <div class="kpi"><div class="k">Otros gastos</div><div class="kv" id="k-otros"></div><div class="ks" id="k-otros-p"></div></div>
-    <div class="kpi"><div class="k">Resultado neto</div><div class="kv" id="k-neto"></div><div class="ks" id="k-neto-p"></div></div>
-  </section>
 
   <section class="card">
     <h2>Resultado por mes</h2>
-    <p class="note">En millones de pesos. Ventas netas de IVA, descuentos e invitaciones. El % es sobre las ventas de la misma vista. Los nombres subrayados abren el tablero de detalle; la flecha de «Otros gastos» lo abre por concepto, y cada concepto se abre por proveedor.</p>
+    <p class="note">En millones de pesos. Ventas netas de IVA, descuentos e invitaciones. El % es sobre las ventas de la misma vista. La tarjeta de Ventas y los nombres subrayados abren el tablero de detalle; la flecha de «Otros gastos» lo abre por concepto, y cada concepto se abre por proveedor.</p>
     <div class="tw"><table id="eerr"><thead></thead><tbody></tbody></table></div>
   </section>
 
@@ -120,7 +120,7 @@ footer{font-size:.78rem;color:var(--muted);text-align:center}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 <script>
 const LINKS = {
-  ventas:  'ventas.html',
+  ventas:  'ventas.html#base=neta',
   merc:    'compras.html#tab=merc',
   sueldos: 'compras.html#tab=eco',
   otros:   'compras.html#tab=eco'
@@ -145,7 +145,8 @@ const meses=ventas.map(v=>v.mes).sort();
 const desde=meses[0],hasta=meses[meses.length-1];
 const per=MESL[+desde.slice(5)-1]+' a '+MESL[+hasta.slice(5)-1]+' '+desde.slice(0,4);
 const qs='&desde='+desde+'&hasta='+hasta;
-const href=k=>LINKS[k].includes('#')?LINKS[k]+qs:LINKS[k];
+const href=k=>LINKS[k].includes('#tab')?LINKS[k]+qs:LINKS[k];
+$('#kpi-ventas').href=href('ventas');
 
 // ===== cálculo
 const GV={total:g=>g.real,fiscal:g=>g.fiscal,no_fiscal:g=>g.real-g.fiscal};
@@ -177,9 +178,6 @@ function draw(){
   $('#k-otros').textContent=fMM(o);$('#k-otros-p').textContent=fP(o/v)+' de las ventas';
   $('#k-neto').textContent=fMM(n);$('#k-neto-p').textContent=fP(n/v)+' de las ventas';
   $('#periodo').textContent='Período: '+per+' · vista '+VN[vista];
-  const tk=$('#takeaway');tk.replaceChildren();
-  const B=t=>{const e=document.createElement('b');e.textContent=t;return e};
-  tk.append('De '+per+', en la vista '+VN[vista]+', las ventas fueron ',B(fMM(v)),' y el resultado neto, ',B(fMM(n)),', el ',B(fP(n/v)),' de las ventas.');
   drawTable(rows);drawChart(rows);
 }
 
@@ -200,7 +198,7 @@ function drawTable(rows){
     if(x.linea==='otros'){const g=document.createElement('button');g.className='tg';g.setAttribute('aria-label','Abrir otros gastos');g.textContent=open.has('otros')?'▾':'▸';g.onclick=()=>tog('otros');td0.append(g)}
     if(x.nivel===2){tr.classList.add('cl');tr.tabIndex=0;const g=document.createElement('span');g.className='tg';g.textContent=open.has(x.linea)?'▾':'▸';td0.append(g);
       tr.onclick=()=>tog(x.linea);tr.onkeydown=e=>{if(e.key==='Enter')tog(x.linea)}}
-    if(LINKS[x.linea]){const a=document.createElement('a');a.className='lk';a.href=href(x.linea);a.textContent=x.etiqueta;td0.append(a)}
+    if(LINKS[x.linea]&&x.linea!=='ventas'){const a=document.createElement('a');a.className='lk';a.href=href(x.linea);a.textContent=x.etiqueta;td0.append(a)}
     else td0.append(x.etiqueta);
     if(x.linea==='sueldos'){const s=document.createElement('span');s.className='sub';s.textContent=' (sin sindicato)';td0.append(s)}
     tr.append(td0);
