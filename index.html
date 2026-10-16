@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Distrito Alem · Estado de resultados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#b8913f; --gold-soft:#e9dcbc; --green:#10251f; --green-2:#183830;
+  --bg:#f6f2e9; --panel:#fffdf8; --fg:#1b1f1c; --muted:#6c6a61; --line:#e3dccb; --bad:#a3382c; --hl:#f3ead4;
+  --c-bruto:#183830; --c-neto:#b8913f;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root{
+  --gold:#d4b06a; --gold-soft:#3b3424; --green:#0b1a16; --green-2:#1f4a3f;
+  --bg:#0f1513; --panel:#16201d; --fg:#ece6d8; --muted:#a39d8f; --line:#2a3632; --bad:#e07a6c; --hl:#262a1f;
+  --c-bruto:#4f8f7c; --c-neto:#d4b06a; color-scheme:dark;}}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:Barlow,system-ui,sans-serif;font-size:15px}
+.wrap{max-width:1400px;margin:0 auto;padding:20px clamp(12px,3vw,32px) 40px;display:flex;flex-direction:column;gap:18px}
+.hero{display:flex;align-items:center;gap:28px;background:var(--green);color:var(--gold);border-radius:10px;padding:22px 30px;flex-wrap:wrap;background-image:radial-gradient(circle at 85% -20%,rgba(212,176,106,.12),transparent 55%)}
+.logo{width:150px;flex:0 0 auto;color:var(--gold)}
+.hero-t{flex:1 1 18rem;min-width:0}
+.hero h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:2.1rem;letter-spacing:.01em;margin:0 0 6px;color:#efe3c4}
+.take{margin:0;color:#d6c697;line-height:1.5;max-width:60ch}
+.take b{color:#f3e7c6;font-weight:600}
+.bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{font:inherit;padding:7px 16px;border:0;background:var(--panel);color:var(--muted);cursor:pointer}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-pressed=true]{background:var(--green-2);color:var(--gold)}
+.per{color:var(--muted);font-size:.85rem}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:14px}
+.kpi,.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+.kpi{border-top:3px solid var(--gold)}
+.kpi .k{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.kpi .kv{font-family:'Cormorant Garamond',Georgia,serif;font-size:2.1rem;font-weight:500;margin:4px 0 2px;font-variant-numeric:lining-nums tabular-nums}
+.kpi .ks{font-size:.85rem;color:var(--muted)}
+.card h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:1.45rem;margin:0 0 4px}
+.note{font-size:.82rem;color:var(--muted);margin:0 0 14px}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:.85rem}
+th,td{padding:7px 8px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--line)}
+th{font-weight:600;color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em}
+th.p,td.p{color:var(--muted);padding-left:2px;font-size:.92em}
+th.p{font-weight:400;text-transform:none}
+th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:var(--panel);z-index:1;min-width:12.5rem}
+td.tt,th.tt{border-left:1px solid var(--line);font-weight:600}
+tr.n1 td{font-size:.95rem}
+tr.res td,tr.res td:first-child{font-weight:600;background:var(--hl);border-bottom:1px solid var(--gold)}
+tr.n2 td:first-child{padding-left:30px}
+tr.n3 td{color:var(--muted)}
+tr.n3 td:first-child{padding-left:50px}
+tr.cl{cursor:pointer}
+tr.cl:hover td{background:var(--hl)}
+.tg{display:inline-block;width:1.1em;color:var(--gold);background:none;border:0;padding:0;font:inherit;cursor:pointer}
+.lk{color:inherit;text-decoration:none;border-bottom:1px dotted var(--gold)}
+.lk:hover{color:var(--gold)}
+.lk::after{content:" ↗";color:var(--gold);font-size:.8em}
+td.neg{color:var(--bad)}
+.sub{color:var(--muted);font-weight:400;font-size:.85em}
+.ch{position:relative;min-height:290px}
+.leg{display:flex;gap:16px;flex-wrap:wrap;font-size:.82rem;color:var(--muted);margin-top:8px}
+.leg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.tip{position:absolute;background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,.15);padding:6px 10px;font-size:.8rem;pointer-events:none;z-index:5;font-variant-numeric:tabular-nums}
+.tip .h{color:var(--muted);margin-bottom:2px}
+.tip i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px}
+footer{font-size:.78rem;color:var(--muted);text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <svg class="logo" viewBox="0 0 220 150" role="img" aria-label="Distrito Alem">
+      <path d="M150 14 L153 26 L165 29 L153 32 L150 44 L147 32 L135 29 L147 26 Z" fill="currentColor"/>
+      <text x="58" y="104" font-size="96" font-family="'Cormorant Garamond', Didot, Georgia, serif" font-weight="500" fill="currentColor">D</text>
+      <text x="100" y="110" font-size="84" font-style="italic" font-family="'Cormorant Garamond', Didot, Georgia, serif" fill="currentColor">A</text>
+      <text x="110" y="140" text-anchor="middle" font-size="15" letter-spacing="2.2" font-family="'Cormorant Garamond', Georgia, serif" font-weight="600" fill="currentColor">DISTRITO ALEM</text>
+    </svg>
+    <div class="hero-t">
+      <h1>Estado de resultados</h1>
+      <p class="take" id="takeaway"></p>
+    </div>
+  </header>
+
+  <div class="bar">
+    <div class="seg" role="group" aria-label="Vista">
+      <button data-v="total" aria-pressed="true">Total</button>
+      <button data-v="fiscal" aria-pressed="false">Fiscal</button>
+      <button data-v="no_fiscal" aria-pressed="false">No fiscal</button>
+    </div>
+    <span class="per" id="periodo"></span>
+  </div>
+
+  <section class="kpis">
+    <div class="kpi"><div class="k">Ventas</div><div class="kv" id="k-ventas"></div><div class="ks" id="k-per"></div></div>
+    <div class="kpi"><div class="k">Resultado bruto</div><div class="kv" id="k-bruto"></div><div class="ks" id="k-bruto-p"></div></div>
+    <div class="kpi"><div class="k">Otros gastos</div><div class="kv" id="k-otros"></div><div class="ks" id="k-otros-p"></div></div>
+    <div class="kpi"><div class="k">Resultado neto</div><div class="kv" id="k-neto"></div><div class="ks" id="k-neto-p"></div></div>
+  </section>
+
+  <section class="card">
+    <h2>Resultado por mes</h2>
+    <p class="note">En millones de pesos. Ventas netas de IVA, descuentos e invitaciones. El % es sobre las ventas de la misma vista. Los nombres subrayados abren el tablero de detalle; la flecha de «Otros gastos» lo abre por concepto, y cada concepto se abre por proveedor.</p>
+    <div class="tw"><table id="eerr"><thead></thead><tbody></tbody></table></div>
+  </section>
+
+  <section class="card">
+    <h2>Resultado bruto y neto por mes</h2>
+    <p class="note">Barras en millones de pesos; la línea es el resultado neto como % de las ventas.</p>
+    <div class="ch" id="chart"></div>
+    <div class="leg" id="leg"></div>
+  </section>
+  <footer id="pie"></footer>
+</div>
+<div class="tip" id="tip" hidden></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+const LINKS = {
+  ventas:  'ventas.html',
+  merc:    'compras.html#tab=merc',
+  sueldos: 'compras.html#tab=eco',
+  otros:   'compras.html#tab=eco'
+};
+const DATA = {"ventas":[["2026-01",56433564,50041089],["2026-02",36073190,32764810],["2026-03",15231640,19132730],["2026-04",27520062,35490100],["2026-05",31284657,28785156],["2026-06",31280517,40532570],["2026-07",49277165,55568445],["2026-08",48196413,52341315],["2026-09",37485607,44379945]],"gastos":[["2026-01","Alquileres","Santiago (alquiler, 3 titulares)",0,1350000],["2026-01","Bazar y vajilla","Grupo Tiri (Tiribelli)",1625471,0],["2026-01","Cargas sociales","ART (312)",16070,16070],["2026-01","Cargas sociales","Aportes retenidos al personal (301/302)",744702,744702],["2026-01","Cargas sociales","Contribuciones patronales Obra Social (352)",386754,386754],["2026-01","Cargas sociales","Contribuciones patronales Seguridad Social (351)",728270,728270],["2026-01","Cargas sociales","Seguro de vida obligatorio (028)",1673,1673],["2026-01","Comisiones y gastos bancarios","Posnet Sociedad De Responsabilidad Limitada",46389,46389],["2026-01","Comisiones y gastos bancarios","Propago Argentina S. R. L.",675687,675687],["2026-01","Insumos y limpieza","Martínez Juan Alberto Benjamín (BACA)",780272,780272],["2026-01","Mercaderías","Alta Distribución",283929,283929],["2026-01","Mercaderías","Alto Valor (Mercados Regionales)",1469937,1469937],["2026-01","Mercaderías","Bouchee Bebidas",3566610,2496694],["2026-01","Mercaderías","Bullblack (Frigorífico 90)",806704,806704],["2026-01","Mercaderías","CABALLERO DE COPAS",536818,0],["2026-01","Mercaderías","Comercial del Mar",993171,993171],["2026-01","Mercaderías","Congelados Aquaro",3452742,0],["2026-01","Mercaderías","Coto",1478833,0],["2026-01","Mercaderías","Distribución y Profesionalismo (Full Mix)",21656,21656],["2026-01","Mercaderías","Frio Sur (Mare Pronto)",3409134,3409134],["2026-01","Mercaderías","Granja La Piedra",104947,0],["2026-01","Mercaderías","Gusencar SRL (alonso)",10746819,10746819],["2026-01","Mercaderías","Integración de Alimentos y Servicios (Lodiser)",149400,149400],["2026-01","Mercaderías","Loydis",899334,899334],["2026-01","Mercaderías","López Guillermo Alejandro (Lácteos Verónica)",1280535,1280535],["2026-01","Mercaderías","Miralejos",267855,267855],["2026-01","Mercaderías","Nestle Argentina S A",484938,484938],["2026-01","Mercaderías","Reginald Lee (Coca-Cola)",1124138,1124138],["2026-01","Mercaderías","Scali María Leonor (Aromáticas Leonor)",7580778,2895928],["2026-01","Mercaderías","Todo para la Gastronomía (TPG)",3146282,3003387],["2026-01","Mercaderías","Unifrio",38009,38009],["2026-01","Servicios","Amx Argentina Sociedad Anonima",20219,20219],["2026-01","Servicios","Gastroware Company S. A.",725445,725445],["2026-01","Sin clasificar","Ciageser Sa",136242,136242],["2026-01","Sin clasificar","Comandarina S. R. L.",51426,51426],["2026-01","Sin clasificar","Digamar Sa",121611,121611],["2026-01","Sin clasificar","Lacus S.A.",54455,54455],["2026-01","Sin clasificar","Murias Carlos Cristian",450000,450000],["2026-01","Sin clasificar","Rojas Mariana Lucia",625000,625000],["2026-01","Sueldos","Pago de Sueldos",47403000,0],["2026-02","Alquileres","Santiago (alquiler, 3 titulares)",6594500,1350000],["2026-02","Bazar y vajilla","Grupo Tiri (Tiribelli)",1089110,0],["2026-02","Cargas sociales","ART (312)",285290,285290],["2026-02","Cargas sociales","Aportes retenidos al personal (301/302)",750352,750352],["2026-02","Cargas sociales","Contribuciones patronales Obra Social (352)",389620,389620],["2026-02","Cargas sociales","Contribuciones patronales Seguridad Social (351)",733872,733872],["2026-02","Cargas sociales","Seguro de vida obligatorio (028)",1673,1673],["2026-02","Comisiones y gastos bancarios","Posnet Sociedad De Responsabilidad Limitada",46389,46389],["2026-02","Comisiones y gastos bancarios","Propago Argentina S. R. L.",1314918,1314918],["2026-02","Insumos y limpieza","Martínez Juan Alberto Benjamín (BACA)",620630,386400],["2026-02","Mantenimiento y equipamiento","Extractores Tomasini Sociedad Anonima",275455,275455],["2026-02","Mercaderías","Alta Distribución",169860,169860],["2026-02","Mercaderías","Alto Valor (Mercados Regionales)",-94413,-94413],["2026-02","Mercaderías","Bodegas Esmeralda (Catena Zapata)",2472844,2472844],["2026-02","Mercaderías","Bouchee Bebidas",585438,585438],["2026-02","Mercaderías","Bullblack (Frigorífico 90)",4263741,3988257],["2026-02","Mercaderías","CABALLERO DE COPAS",164500,0],["2026-02","Mercaderías","Cajaravilla David",1796600,0],["2026-02","Mercaderías","Chacinados La Nona",82000,0],["2026-02","Mercaderías","Cheese and More",255000,0],["2026-02","Mercaderías","Comercial del Mar",753209,753209],["2026-02","Mercaderías","Congelados Aquaro",780755,0],["2026-02","Mercaderías","Coto",169684,0],["2026-02","Mercaderías","Frio Sur (Mare Pronto)",1765188,1765188],["2026-02","Mercaderías","Granja La Piedra",187488,0],["2026-02","Mercaderías","Gusencar SRL (alonso)",4326449,4326449],["2026-02","Mercaderías","Integración de Alimentos y Servicios (Lodiser)",149400,149400],["2026-02","Mercaderías","Loydis",426297,426297],["2026-02","Mercaderías","López Guillermo Alejandro (Lácteos Verónica)",1282090,1282090],["2026-02","Mercaderías","Miralejos",216018,216018],["2026-02","Mercaderías","Reginald Lee (Coca-Cola)",626554,626554],["2026-02","Mercaderías","Scali María Leonor (Aromáticas Leonor)",2254826,1357466],["2026-02","Mercaderías","Todo para la Gastronomía (TPG)",1844534,1844534],["2026-02","Mercaderías","Unifrio",76923,76923],["2026-02","Servicios","Amx Argentina Sociedad Anonima",21144,21144],["2026-02","Servicios","Fadefil (AQA)",451000,451000],["2026-02","Servicios","Foodlabs (Woki)",19690,19690],["2026-02","Sin clasificar","Ciageser Sa",136242,136242],["2026-02","Sin clasificar","Comandarina S. R. L.",51425,51425],["2026-02","Sin clasificar","Digamar Sa",270359,270359],["2026-02","Sin clasificar","Llamas Pilar",400000,400000],["2026-02","Sin clasificar","Murias Carlos Cristian",450000,450000],["2026-02","Sueldos","Pago de Sueldos",23745000,0],["2026-03","Alquileres","Santiago (alquiler, 3 titulares)",0,1350000],["2026-03","Cargas sociales","ART (312)",323379,323379],["2026-03","Cargas sociales","Aportes retenidos al personal (301/302)",888261,888261],["2026-03","Cargas sociales","Contribuciones patronales Obra Social (352)",462798,462798],["2026-03","Cargas sociales","Contribuciones patronales Seguridad Social (351)",868752,868752],["2026-03","Cargas sociales","Seguro de vida obligatorio (028)",2123,2123],["2026-03","Comisiones y gastos bancarios","Posnet Sociedad De Responsabilidad Limitada",50193,50193],["2026-03","Comisiones y gastos bancarios","Propago Argentina S. R. L.",949638,949638],["2026-03","Honorarios profesionales","Antonella Amaranti",1050000,0],["2026-03","Insumos y limpieza","Martínez Juan Alberto Benjamín (BACA)",187661,187661],["2026-03","Mercaderías","Aitor Ider Balbo (Falasco Wines)",681847,681847],["2026-03","Mercaderías","Bouchee Bebidas",886340,886340],["2026-03","Mercaderías","Bullblack (Frigorífico 90)",4088326,4088326],["2026-03","Mercaderías","Cajaravilla David",1828500,0],["2026-03","Mercaderías","Chacinados La Nona",28750,0],["2026-03","Mercaderías","Cheese and More",298661,298661],["2026-03","Mercaderías","Comercial del Mar",201233,201233],["2026-03","Mercaderías","Congelados Aquaro",2227531,1024445],["2026-03","Mercaderías","Coto",1288459,0],["2026-03","Mercaderías","Frio Sur (Mare Pronto)",355000,355000],["2026-03","Mercaderías","Hugo y Eduardo Pulenta",1236198,1236198],["2026-03","Mercaderías","López Guillermo Alejandro (Lácteos Verónica)",627300,627300],["2026-03","Mercaderías","Reginald Lee (Coca-Cola)",1009002,621662],["2026-03","Mercaderías","Todo para la Gastronomía (TPG)",1783956,1783956],["2026-03","Servicios","Amx Argentina Sociedad Anonima",21877,21877],["2026-03","Servicios","Camuzzi",333810,0],["2026-03","Servicios","Edea",2671382,0],["2026-03","Servicios","Fadefil (AQA)",300000,300000],["2026-03","Servicios","Foodlabs (Woki)",65000,65000],["2026-03","Sin clasificar","Ciageser Sa",136242,136242],["2026-03","Sin clasificar","Comandarina S. R. L.",62810,62810],["2026-03","Sin clasificar","Digamar Sa",62864,62864],["2026-03","Sin clasificar","Gomez Adobbati Nestor Daniel",1187600,1187600],["2026-03","Sin clasificar","Murias Carlos Cristian",450000,450000],["2026-03","Sueldos","Alejandro Marcilla",1060000,0],["2026-03","Sueldos","Pago de Sueldos",9820000,0],["2026-04","Alquileres","Santiago (alquiler, 3 titulares)",7200800,1440000],["2026-04","Cargas sociales","ART (312)",400724,400724],["2026-04","Cargas sociales","Aportes retenidos al personal (301/302)",1368971,1368971],["2026-04","Cargas sociales","Contribuciones patronales Obra Social (352)",711483,711483],["2026-04","Cargas sociales","Contribuciones patronales Seguridad Social (351)",1340092,1340092],["2026-04","Cargas sociales","Seguro de vida obligatorio (028)",3822,3822],["2026-04","Comisiones y gastos bancarios","Payway Sau",388,388],["2026-04","Comisiones y gastos bancarios","Posnet Sociedad De Responsabilidad Limitada",50193,50193],["2026-04","Comisiones y gastos bancarios","Propago Argentina S. R. L.",636342,636342],["2026-04","Insumos y limpieza","Martínez Juan Alberto Benjamín (BACA)",723293,723293],["2026-04","Mercaderías","Alta Distribución",463323,463323],["2026-04","Mercaderías","Baguette",430010,0],["2026-04","Mercaderías","Bouchee Bebidas",6969348,4537328],["2026-04","Mercaderías","Bullblack (Frigorífico 90)",675677,675677],["2026-04","Mercaderías","CABALLERO DE COPAS",428500,0],["2026-04","Mercaderías","Cajaravilla David",2208100,0],["2026-04","Mercaderías","Cheese and More",939378,939378],["2026-04","Mercaderías","Comercial del Mar",777411,777411],["2026-04","Mercaderías","Congelados Aquaro",877313,0],["2026-04","Mercaderías","Desconocido",116600,0],["2026-04","Mercaderías","Dugnani Matias",170300,0],["2026-04","Mercaderías","Frio Sur (Mare Pronto)",2330960,2330960],["2026-04","Mercaderías","GIN OGHAM",70620,0],["2026-04","Mercaderías","Gusencar SRL (alonso)",4828466,4828466],["2026-04","Mercaderías","López Guillermo Alejandro (Lácteos Verónica)",751000,0],["2026-04","Mercaderías","Menor Coste",1069171,0],["2026-04","Mercaderías","Miralejos",215421,215421],["2026-04","Mercaderías","Nestle Argentina S A",336276,336276],["2026-04","Mercaderías","Pampa y Novillo",478903,478903],["2026-04","Mercaderías","Reginald Lee (Coca-Cola)",1139568,1139568],["2026-04","Mercaderías","Todo para la Gastronomía (TPG)",2128450,2128450],["2026-04","Mercaderías","Unifrio",538826,70226],["2026-04","Servicios","Amx Argentina Sociedad Anonima",22373,22373],["2026-04","Servicios","Camuzzi",489080,0],["2026-04","Servicios","Edea",2297506,0],["2026-04","Servicios","Fadefil (AQA)",300000,300000],["2026-04","Servicios","Foodlabs (Woki)",72200,72200],["2026-04","Sin clasificar","Ciageser Sa",148299,148299],["2026-04","Sin clasificar","Comandarina S. R. L.",62810,62810],["2026-04","Sin clasificar","Digamar Sa",110105,110105],["2026-04","Sin clasificar","Gomez Adobbati Nestor Daniel",1614800,1614800],["2026-04","Sin clasificar","Murias Carlos Cristian",480000,480000],["2026-04","Sueldos","Desconocido",25000,0],["2026-05","Alquileres","Alejandro Marcilla",5180000,0],["2026-05","Alquileres","Santiago (alquiler, 3 titulares)",2500800,1440000],["2026-05","Bazar y vajilla","Juan Tejerina (bazar, Solgast)",191604,0],["2026-05","Cargas sociales","ART (312)",333558,333558],["2026-05","Cargas sociales","Aportes retenidos al personal (301/302)",1114878,1114878],["2026-05","Cargas sociales","Contribuciones patronales Obra Social (352)",580799,580799],["2026-05","Cargas sociales","Contribuciones patronales Seguridad Social (351)",1089175,1089175],["2026-05","Cargas sociales","Seguro de vida obligatorio (028)",3822,3822],["2026-05","Comisiones y gastos bancarios","Payway Sau",6120,6120],["2026-05","Comisiones y gastos bancarios","Posnet Sociedad De Responsabilidad Limitada",50193,50193],["2026-05","Comisiones y gastos bancarios","Propago Argentina S. R. L.",574416,574416],["2026-05","Gastos varios","Desconocido",326618,0],["2026-05","Gastos varios","Menor Coste",53240,0],["2026-05","Honorarios profesionales","Antonella Amaranti",350000,0],["2026-05","Insumos y limpieza","Martínez Juan Alberto Benjamín (BACA)",348915,348915],["2026-05","Mercaderías","Alejandro Marcilla",1400000,0],["2026-05","Mercaderías","Alta Distribución",514753,514753],["2026-05","Mercaderías","Baguette",436324,0],["2026-05","Mercaderías","Bouchee Bebidas",3733785,2733785],["2026-05","Mercaderías","Cajaravilla David",2961551,734751],["2026-05","Mercaderías","Cheese and More",654545,654545],["2026-05","Mercaderías","Comercial del Mar",679500,679500],["2026-05","Mercaderías","Coto",176382,0],["2026-05","Mercaderías","Desconocido",1724705,0],["2026-05","Mercaderías","Dugnani Matias",200000,0],["2026-05","Mercaderías","Frio Sur (Mare Pronto)",1843684,1843684],["2026-05","Mercaderías","GIN OGHAM",140400,0],["2026-05","Mercaderías","Gusencar SRL (alonso)",3061812,3061812],["2026-05","Mercaderías","Hoffen",854000,0],["2026-05","Mercaderías","Hugo y Eduardo Pulenta",-1236198,-1236198],["2026-05","Mercaderías","Loydis",2786936,2786936],["2026-05","Mercaderías","López Guillermo Alejandro (Lácteos Verónica)",230000,230000],["2026-05","Mercaderías","Menor Coste",56300,0],["2026-05","Mercaderías","Miralejos",138172,138172],["2026-05","Mercaderías","Pampa y Novillo",3136523,3136523],["2026-05","Mercaderías","Reginald Lee (Coca-Cola)",562453,562453],["2026-05","Mercaderías","Todo para la Gastronomía (TPG)",4824052,2802830],["2026-05","Mercaderías","Unifrio",517494,35294],["2026-05","Servicios","Alejandro Marcilla",2358133,0],["2026-05","Servicios","Amx Argentina Sociedad Anonima",23919,23919],["2026-05","Servicios","Camuzzi",635150,0],["2026-05","Servicios","Fadefil (AQA)",330048,330048],["2026-05","Servicios","Foodlabs (Woki)",65000,65000],["2026-05","Sin clasificar","Ciageser Sa",155714,155714],["2026-05","Sin clasificar","Comandarina S. R. L.",62810,62810],["2026-05","Sin clasificar","Murias Carlos Cristian",480000,480000],["2026-05","Sin clasificar","Volf S.A.",2627052,2627052],["2026-05","Sueldos","Alejandro Marcilla",3500000,0],["2026-05","Sueldos","Desconocido",3903000,0],["2026-05","Sueldos","Grosso Aldana Guadalupe",60000,0],["2026-06","Alquileres","Santiago (alquiler, 3 titulares)",0,1440000],["2026-06","Bazar y vajilla","Juan Tejerina (bazar, Solgast)",491509,0],["2026-06","Cargas sociales","ART (312)",473112,473112],["2026-06","Cargas sociales","Aportes retenidos al personal (301/302)",1623758,1623758],["2026-06","Cargas sociales","Contribuciones patronales Obra Social (352)",839249,839249],["2026-06","Cargas sociales","Contribuciones patronales Seguridad Social (351)",1593593,1593593],["2026-06","Cargas sociales","Seguro de vida obligatorio (028)",3822,3822],["2026-06","Comisiones y gastos bancarios","Payway Sau",14424,14424],["2026-06","Gastos varios","CABALLERO DE COPAS",150000,0],["2026-06","Gastos varios","Desconocido",563620,0],["2026-06","Gastos varios","Menor Coste",553140,0],["2026-06","Honorarios profesionales","Antonella Amaranti",350000,0],["2026-06","Insumos y limpieza","Martínez Juan Alberto Benjamín (BACA)",1056834,1056834],["2026-06","Insumos y limpieza","Partner (servilletas)",624488,0],["2026-06","Mercaderías","Alonso Constantino Raul",530468,530468],["2026-06","Mercaderías","Alta Distribución",1221547,1221547],["2026-06","Mercaderías","Aves del Atlántico",117647,117647],["2026-06","Mercaderías","Baguette",213780,0],["2026-06","Mercaderías","Bodegas Chandon (Moet Hennessy)",3553723,3553723],["2026-06","Mercaderías","Bouchee Bebidas",2968964,2968964],["2026-06","Mercaderías","Cajaravilla David",2997477,904977],["2026-06","Mercaderías","Cheese and More",1102416,1102416],["2026-06","Mercaderías","Comercial del Mar",1018075,1018075],["2026-06","Mercaderías","Congelados Aquaro",130000,0],["2026-06","Mercaderías","Coto",81576,0],["2026-06","Mercaderías","Desconocido",505458,0],["2026-06","Mercaderías","Dugnani Matias",100000,0],["2026-06","Mercaderías","Frio Sur (Mare Pronto)",1625508,1625508],["2026-06","Mercaderías","GIN OGHAM",129470,0],["2026-06","Mercaderías","Gusencar SRL (alonso)",8575440,8575440],["2026-06","Mercaderías","Hoffen",2818000,0],["2026-06","Mercaderías","Hosmann Julio (Los Alemanes)",53213,53213],["2026-06","Mercaderías","Loydis",4305738,4305738],["2026-06","Mercaderías","López Guillermo Alejandro (Lácteos Verónica)",220500,220500],["2026-06","Mercaderías","Lúpulo S.A",23540,0],["2026-06","Mercaderías","Miralejos",142824,142824],["2026-06","Mercaderías","Nestle Argentina S A",356451,356451],["2026-06","Mercaderías","Reginald Lee (Coca-Cola)",895813,895813],["2026-06","Mercaderías","Todo para la Gastronomía (TPG)",2600553,2600553],["2026-06","Mercaderías","Unifrio",690294,35294],["2026-06","Servicios","Amx Argentina Sociedad Anonima",25241,25241],["2026-06","Servicios","Camuzzi",600047,0],["2026-06","Servicios","Edea",1813967,0],["2026-06","Servicios","FLORES LEANDRO EZEQUIEL",52000,0],["2026-06","Servicios","Fadefil (AQA)",330048,330048],["2026-06","Servicios","Foodlabs (Woki)",143649,65000],["2026-06","Sin clasificar","Ciageser Sa",155714,155714],["2026-06","Sin clasificar","Comandarina S. R. L.",68306,68306],["2026-06","Sin clasificar","Murias Carlos Cristian",480000,480000],["2026-06","Sueldos","Desconocido",8702000,0],["2026-07","Alquileres","Santiago (alquiler, 3 titulares)",0,1575000],["2026-07","Bazar y vajilla","Juan Tejerina (bazar, Solgast)",268503,0],["2026-07","Cargas sociales","ART (312)",365190,365190],["2026-07","Cargas sociales","Aportes retenidos al personal (301/302)",1209942,1209942],["2026-07","Cargas sociales","Contribuciones patronales Obra Social (352)",640395,640395],["2026-07","Cargas sociales","Contribuciones patronales Seguridad Social (351)",1176846,1176846],["2026-07","Cargas sociales","Seguro de vida obligatorio (028)",3822,3822],["2026-07","Comisiones y gastos bancarios","Banco Bbva Argentina S.A.",70550,70550],["2026-07","Comisiones y gastos bancarios","Banco De La Provincia De Buenos Aires",69237,69237],["2026-07","Comisiones y gastos bancarios","Payway Sau",940,940],["2026-07","Comisiones y gastos bancarios","Propago Argentina S. R. L.",823707,823707],["2026-07","Gastos varios","Desconocido",381570,0],["2026-07","Gastos varios","Gmj Combustibles Sociedad Por Acciones Simplificada",371696,371696],["2026-07","Gastos varios","Menor Coste",159150,0],["2026-07","Gastos varios","Operadora De Estaciones De Servicios Sa",42172,42172],["2026-07","Gastos varios","Todo para la Gastronomía (TPG)",686846,686846],["2026-07","Insumos y limpieza","Martínez Juan Alberto Benjamín (BACA)",384464,384464],["2026-07","Insumos y limpieza","Partner (servilletas)",329414,0],["2026-07","Mercaderías","Aitor Ider Balbo (Falasco Wines)",274711,274711],["2026-07","Mercaderías","Alta Distribución",1428323,1428323],["2026-07","Mercaderías","Alto Valor (Mercados Regionales)",-43527,-43527],["2026-07","Mercaderías","Aves del Atlántico",117647,117647],["2026-07","Mercaderías","Baguette",43450,0],["2026-07","Mercaderías","Bodegas Chandon (Moet Hennessy)",1960361,1960361],["2026-07","Mercaderías","Bodegas Esmeralda (Catena Zapata)",377107,377107],["2026-07","Mercaderías","Bouchee Bebidas",3647689,3647689],["2026-07","Mercaderías","Cajaravilla David",4695081,1380181],["2026-07","Mercaderías","Cheese and More",832313,832313],["2026-07","Mercaderías","Comercial del Mar",2255232,2255232],["2026-07","Mercaderías","Desconocido",880139,0],["2026-07","Mercaderías","Finca Iral (Amigo Fernando)",2867400,0],["2026-07","Mercaderías","Frio Sur (Mare Pronto)",3544938,3544938],["2026-07","Mercaderías","GIN OGHAM",140820,0],["2026-07","Mercaderías","Granja los amigos (Cordero)",147030,0],["2026-07","Mercaderías","Gusencar SRL (alonso)",9330714,9330714],["2026-07","Mercaderías","Hoffen",323400,0],["2026-07","Mercaderías","Hosmann Julio (Los Alemanes)",334119,104087],["2026-07","Mercaderías","Hugo y Eduardo Pulenta",690620,690620],["2026-07","Mercaderías","Iñaki Lecuona",370000,0],["2026-07","Mercaderías","La Casa del Rey",1170248,1170248],["2026-07","Mercaderías","Loydis",2899322,2899322],["2026-07","Mercaderías","López Guillermo Alejandro (Lácteos Verónica)",249619,249619],["2026-07","Mercaderías","Miralejos",144941,144941],["2026-07","Mercaderías","Reginald Lee (Coca-Cola)",1628857,1628857],["2026-07","Mercaderías","Todo para la Gastronomía (TPG)",2555012,2555012],["2026-07","Mercaderías","Unifrio",638394,153394],["2026-07","Servicios","Amx Argentina Sociedad Anonima",26807,26807],["2026-07","Servicios","Fadefil (AQA)",330048,330048],["2026-07","Servicios","Foodlabs (Woki)",149999,149999],["2026-07","Sin clasificar","Casimiro Felix Toyos E Hijos S A",2156049,2156049],["2026-07","Sin clasificar","Ciageser Sa",155714,155714],["2026-07","Sin clasificar","Comandarina S. R. L.",68306,68306],["2026-07","Sin clasificar","Digamar Sa",80552,80552],["2026-07","Sin clasificar","Gomez Miganne Agustin",363600,363600],["2026-07","Sin clasificar","Murias Carlos Cristian",525000,525000],["2026-07","Sin clasificar","Szpyrnal Pablo Sergio",320000,320000],["2026-07","Sueldos","Desconocido",7987000,0],["2026-07","Sueldos","Iñaki Lecuona",78000,0],["2026-07","Sueldos","Martin Estevao",830000,0],["2026-07","Sueldos","Pago de Sueldos",100000,0],["2026-08","Alquileres","Santiago (alquiler, 3 titulares)",0,1575000],["2026-08","Bazar y vajilla","Juan Tejerina (bazar, Solgast)",384560,0],["2026-08","Cargas sociales","ART (312)",335054,335054],["2026-08","Cargas sociales","Aportes retenidos al personal (301/302)",1094074,1094074],["2026-08","Cargas sociales","Contribuciones patronales Obra Social (352)",578830,578830],["2026-08","Cargas sociales","Contribuciones patronales Seguridad Social (351)",1063570,1063570],["2026-08","Cargas sociales","Seguro de vida obligatorio (028)",3822,3822],["2026-08","Comisiones y gastos bancarios","Banco Bbva Argentina S.A.",74140,74140],["2026-08","Comisiones y gastos bancarios","Banco De La Provincia De Buenos Aires",73231,73231],["2026-08","Comisiones y gastos bancarios","Openpay Argentina Sa",14999,14999],["2026-08","Comisiones y gastos bancarios","Payway Sau",2616,2616],["2026-08","Comisiones y gastos bancarios","Propago Argentina S. R. L.",1779733,1779733],["2026-08","Gastos varios","Desconocido",433020,0],["2026-08","Gastos varios","Fabian Muñoz (vacío)",462800,0],["2026-08","Gastos varios","Iñaki Lecuona",879000,0],["2026-08","Gastos varios","Menor Coste",860440,0],["2026-08","Gastos varios","Varios",140000,0],["2026-08","Honorarios profesionales","Antonella Amaranti",1145000,0],["2026-08","Insumos y limpieza","Martínez Juan Alberto Benjamín (BACA)",969141,969141],["2026-08","Insumos y limpieza","Partner (servilletas)",187057,0],["2026-08","Mercaderías","Alta Distribución",2352071,1603088],["2026-08","Mercaderías","Aves del Atlántico",235294,235294],["2026-08","Mercaderías","Bodegas Chandon (Moet Hennessy)",5454822,5454822],["2026-08","Mercaderías","Bouchee Bebidas",3439700,3439700],["2026-08","Mercaderías","CABALLERO DE COPAS",472500,0],["2026-08","Mercaderías","CO2 (DEUDA  VIEJA)",447000,0],["2026-08","Mercaderías","Cajaravilla David",4444196,1423846],["2026-08","Mercaderías","Cheese and More",1598748,1598748],["2026-08","Mercaderías","Comercial del Mar",2190293,2190293],["2026-08","Mercaderías","Fabian Muñoz (vacío)",1707850,0],["2026-08","Mercaderías","Finca Iral (Amigo Fernando)",1368000,0],["2026-08","Mercaderías","Frio Sur (Mare Pronto)",2162888,2162888],["2026-08","Mercaderías","GIN OGHAM",211440,0],["2026-08","Mercaderías","Granja los amigos (Cordero)",316240,0],["2026-08","Mercaderías","Grupo Avinea",2694319,1347159],["2026-08","Mercaderías","Gusencar SRL (alonso)",7153252,7153252],["2026-08","Mercaderías","Hoffen",674000,0],["2026-08","Mercaderías","Loydis",5144425,5144425],["2026-08","Mercaderías","Miralejos",214751,214751],["2026-08","Mercaderías","Reginald Lee (Coca-Cola)",2095841,1744889],["2026-08","Mercaderías","Todo para la Gastronomía (TPG)",4582823,4520574],["2026-08","Mercaderías","Unifrio",1135514,157014],["2026-08","Mercaderías","Varios",26000,0],["2026-08","Servicios","Amx Argentina Sociedad Anonima",28148,28148],["2026-08","Servicios","Camuzzi",695594,0],["2026-08","Servicios","Edea",4233322,0],["2026-08","Servicios","FLORES LEANDRO EZEQUIEL",52000,0],["2026-08","Servicios","Fadefil (AQA)",332500,332500],["2026-08","Servicios","Foodlabs (Woki)",149999,149999],["2026-08","Sin clasificar","Asaro Roque Antonio",162224,162224],["2026-08","Sin clasificar","Cardon Del Valle S.R.L.",1463861,1463861],["2026-08","Sin clasificar","Ciageser Sa",155714,155714],["2026-08","Sin clasificar","Comandarina S. R. L.",68306,68306],["2026-08","Sin clasificar","Gomez Miganne Agustin",1269000,1269000],["2026-08","Sin clasificar","Murias Carlos Cristian",525000,525000],["2026-08","Sin clasificar","Szpyrnal Pablo Sergio",1461294,1461294],["2026-08","Sueldos","Desconocido",14804690,0],["2026-09","Alquileres","Alejandro Marcilla",5650000,0],["2026-09","Alquileres","Santiago (alquiler, 3 titulares)",0,1575000],["2026-09","Bazar y vajilla","Juan Tejerina (bazar, Solgast)",303283,0],["2026-09","Cargas sociales","ART (312)",290068,290068],["2026-09","Cargas sociales","Aportes retenidos al personal (301/302)",943279,943279],["2026-09","Cargas sociales","Contribuciones patronales Obra Social (352)",498660,498660],["2026-09","Cargas sociales","Contribuciones patronales Seguridad Social (351)",916805,916805],["2026-09","Cargas sociales","Seguro de vida obligatorio (028)",3397,3397],["2026-09","Comisiones y gastos bancarios","Banco Bbva Argentina S.A.",90799,90799],["2026-09","Comisiones y gastos bancarios","Banco De La Provincia De Buenos Aires",77740,77740],["2026-09","Comisiones y gastos bancarios","Payway Sau",524,524],["2026-09","Comisiones y gastos bancarios","Propago Argentina S. R. L.",1166098,1166098],["2026-09","Gastos varios","Desconocido",753626,0],["2026-09","Gastos varios","Menor Coste",172250,0],["2026-09","Insumos y limpieza","Martínez Juan Alberto Benjamín (BACA)",411190,411190],["2026-09","Insumos y limpieza","Partner (servilletas)",585522,0],["2026-09","Mercaderías","Aitor Ider Balbo (Falasco Wines)",427686,427686],["2026-09","Mercaderías","Alta Distribución",1058374,1058374],["2026-09","Mercaderías","Aves del Atlántico",352796,352796],["2026-09","Mercaderías","Bodegas Chandon (Moet Hennessy)",2500972,2500972],["2026-09","Mercaderías","Bouchee Bebidas",2672104,2672104],["2026-09","Mercaderías","CABALLERO DE COPAS",158622,0],["2026-09","Mercaderías","Cajaravilla David",4133224,1085974],["2026-09","Mercaderías","Cheese and More",1701284,1701284],["2026-09","Mercaderías","Comercial del Mar",2169788,2169788],["2026-09","Mercaderías","Delisanti Do Mare",37500,37500],["2026-09","Mercaderías","Desconocido",375300,0],["2026-09","Mercaderías","Dugnani Matias",421000,0],["2026-09","Mercaderías","Fabian Muñoz (vacío)",1375525,0],["2026-09","Mercaderías","Finca Iral (Amigo Fernando)",1338550,0],["2026-09","Mercaderías","Frio Sur (Mare Pronto)",1713100,1713100],["2026-09","Mercaderías","GIN OGHAM",148308,0],["2026-09","Mercaderías","Granja los amigos (Cordero)",171500,0],["2026-09","Mercaderías","Gusencar SRL (alonso)",4427269,4427269],["2026-09","Mercaderías","Hoffen",495800,0],["2026-09","Mercaderías","Loydis",2857803,2857803],["2026-09","Mercaderías","Miralejos",151312,151312],["2026-09","Mercaderías","Pampa y Novillo",597870,597870],["2026-09","Mercaderías","Reginald Lee (Coca-Cola)",1069220,1069220],["2026-09","Mercaderías","Todo para la Gastronomía (TPG)",2228490,2171265],["2026-09","Mercaderías","Unifrio",680516,166516],["2026-09","Mercaderías","Varios",19500,0],["2026-09","Servicios","Amx Argentina Sociedad Anonima",29040,29040],["2026-09","Servicios","Camuzzi",740925,0],["2026-09","Servicios","Edea",2380037,0],["2026-09","Servicios","FLORES LEANDRO EZEQUIEL",503000,0],["2026-09","Servicios","Fadefil (AQA)",1990317,332500],["2026-09","Servicios","Foodlabs (Woki)",149999,149999],["2026-09","Sin clasificar","Ciageser Sa",167704,167704],["2026-09","Sin clasificar","Comandarina S. R. L.",71839,71839],["2026-09","Sin clasificar","Galetto Mikaela Antonella",200000,200000],["2026-09","Sin clasificar","Loos Nicolas Federico",100000,100000],["2026-09","Sin clasificar","Murias Carlos Cristian",525000,525000],["2026-09","Sin clasificar","Palacios Fabian Edgardo",525000,525000],["2026-09","Sueldos","Alejandro Marcilla",1000000,0],["2026-09","Sueldos","Desconocido",11634000,0],["2026-10","Alquileres","Santiago (alquiler, 3 titulares)",0,1725000],["2026-10","Bazar y vajilla","Grupo Tiri (Tiribelli)",442346,442346],["2026-10","Comisiones y gastos bancarios","Propago Argentina S. R. L.",882727,882727],["2026-10","Gastos varios","Desconocido",58800,0],["2026-10","Insumos y limpieza","Martínez Juan Alberto Benjamín (BACA)",439418,439418],["2026-10","Mantenimiento y equipamiento","Bidcom Srl",171817,171817],["2026-10","Mercaderías","Alejandro Marcilla",1000000,0],["2026-10","Mercaderías","Alta Distribución",452819,450319],["2026-10","Mercaderías","Bodegas Esmeralda (Catena Zapata)",1472603,1472603],["2026-10","Mercaderías","Bouchee Bebidas",1049898,1049898],["2026-10","Mercaderías","Cajaravilla David",1569000,0],["2026-10","Mercaderías","Cheese and More",709077,709077],["2026-10","Mercaderías","Comercial del Mar",618573,618573],["2026-10","Mercaderías","Deancar Servicios",591963,591963],["2026-10","Mercaderías","Delisanti Do Mare",180000,180000],["2026-10","Mercaderías","Desconocido",91955,0],["2026-10","Mercaderías","Fabian Muñoz (vacío)",317115,0],["2026-10","Mercaderías","Frio Sur (Mare Pronto)",1566804,1566804],["2026-10","Mercaderías","GIN OGHAM",74154,0],["2026-10","Mercaderías","Granja los amigos (Cordero)",58000,0],["2026-10","Mercaderías","Gusencar SRL (alonso)",416018,416018],["2026-10","Mercaderías","Loydis",943786,943786],["2026-10","Mercaderías","López Guillermo Alejandro (Lácteos Verónica)",212705,212705],["2026-10","Mercaderías","Miralejos",71403,71403],["2026-10","Mercaderías","Pampa y Novillo",1680733,1680733],["2026-10","Mercaderías","Reginald Lee (Coca-Cola)",943335,943335],["2026-10","Mercaderías","Todo para la Gastronomía (TPG)",1482863,1482863],["2026-10","Mercaderías","Unifrio",505104,137104],["2026-10","Mercaderías","VIDELA JUAN CARLOS",26000,0],["2026-10","Servicios","FLORES LEANDRO EZEQUIEL",53000,0],["2026-10","Servicios","Fadefil (AQA)",332500,332500],["2026-10","Sin clasificar","Comandarina S. R. L.",71839,71839],["2026-10","Sin clasificar","Galetto Mikaela Antonella",200000,200000],["2026-10","Sin clasificar","Procopio Fabrizio Leonardo",2378096,2378096],["2026-10","Sueldos","Desconocido",6229000,0]]};
+const GENERADO = '16/10/2026';
+</script>
+<script>
+(() => {
+const MES=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+const MESL=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const mLab=m=>MES[+m.slice(5)-1];
+const nf1=new Intl.NumberFormat('es-AR',{minimumFractionDigits:1,maximumFractionDigits:1});
+const fM=x=>x==null?'':Math.abs(x)<50000?'–':(x<0?'−':'')+nf1.format(Math.abs(x)/1e6);
+const fMM=x=>(x<0?'−':'')+'$ '+nf1.format(Math.abs(x)/1e6)+' M';
+const fP=x=>x==null||!isFinite(x)?'':Math.abs(x)<0.0005?'–':(x<0?'−':'')+nf1.format(Math.abs(x)*100)+' %';
+const $=s=>document.querySelector(s);
+const VN={total:'total',fiscal:'fiscal',no_fiscal:'no fiscal'};
+const ventas=DATA.ventas.map(([mes,fn,nf])=>({mes,fn,nf}));
+const gastos=DATA.gastos.map(([mes,concepto,proveedor,real,fiscal])=>({mes,concepto,proveedor,real,fiscal}));
+const meses=ventas.map(v=>v.mes).sort();
+const desde=meses[0],hasta=meses[meses.length-1];
+const per=MESL[+desde.slice(5)-1]+' a '+MESL[+hasta.slice(5)-1]+' '+desde.slice(0,4);
+const qs='&desde='+desde+'&hasta='+hasta;
+const href=k=>LINKS[k].includes('#')?LINKS[k]+qs:LINKS[k];
+
+// ===== cálculo
+const GV={total:g=>g.real,fiscal:g=>g.fiscal,no_fiscal:g=>g.real-g.fiscal};
+const VV={total:v=>v.fn+v.nf,fiscal:v=>v.fn,no_fiscal:v=>v.nf};
+const SUEL=new Set(['Sueldos','Cargas sociales']);
+const E={};
+for(const vista of Object.keys(GV)){
+  const vm={};ventas.forEach(v=>vm[v.mes]=VV[vista](v));
+  const acc={},add=(k,et,niv,m,x)=>{const r=acc[k]||(acc[k]={linea:k,etiqueta:et,nivel:niv,m:{}});r.m[m]=(r.m[m]||0)+x};
+  meses.forEach(m=>{add('ventas','Ventas',1,m,vm[m]);add('merc','Mercadería',1,m,0);add('sueldos','Sueldos + cargas',1,m,0);add('otros','Otros gastos',1,m,0)});
+  gastos.filter(g=>meses.includes(g.mes)).forEach(g=>{const x=-GV[vista](g);
+    if(g.concepto==='Mercaderías')add('merc','Mercadería',1,g.mes,x);
+    else if(SUEL.has(g.concepto))add('sueldos','Sueldos + cargas',1,g.mes,x);
+    else{add('otros','Otros gastos',1,g.mes,x);add('otros|'+g.concepto,g.concepto,2,g.mes,x);add('otros|'+g.concepto+'|'+g.proveedor,g.proveedor,3,g.mes,x)}});
+  const get=(k,m)=>(acc[k]&&acc[k].m[m])||0;
+  meses.forEach(m=>{const b=get('ventas',m)+get('merc',m)+get('sueldos',m);add('bruto','Resultado bruto',1,m,b);add('neto','Resultado neto',1,m,b+get('otros',m))});
+  const T=meses.reduce((s,m)=>s+vm[m],0);
+  E[vista]=Object.values(acc).map(r=>{let t=0;const row={...r,v:{},p:{}};meses.forEach(m=>{const x=r.m[m]||0;t+=x;row.v[m]=x;row.p[m]=vm[m]?x/vm[m]:null});row.total=t;row.pt=T?t/T:null;return row});
+}
+
+let vista='total';const open=new Set();
+document.querySelectorAll('.seg button').forEach(b=>b.addEventListener('click',()=>{vista=b.dataset.v;document.querySelectorAll('.seg button').forEach(x=>x.setAttribute('aria-pressed',x===b));draw()}));
+
+function draw(){
+  const rows=E[vista],L=k=>rows.find(r=>r.linea===k);
+  const v=L('ventas').total,b=L('bruto').total,o=L('otros').total,n=L('neto').total;
+  $('#k-ventas').textContent=fMM(v);$('#k-per').textContent=per.charAt(0).toUpperCase()+per.slice(1);
+  $('#k-bruto').textContent=fMM(b);$('#k-bruto-p').textContent=fP(b/v)+' de las ventas';
+  $('#k-otros').textContent=fMM(o);$('#k-otros-p').textContent=fP(o/v)+' de las ventas';
+  $('#k-neto').textContent=fMM(n);$('#k-neto-p').textContent=fP(n/v)+' de las ventas';
+  $('#periodo').textContent='Período: '+per+' · vista '+VN[vista];
+  const tk=$('#takeaway');tk.replaceChildren();
+  const B=t=>{const e=document.createElement('b');e.textContent=t;return e};
+  tk.append('De '+per+', en la vista '+VN[vista]+', las ventas fueron ',B(fMM(v)),' y el resultado neto, ',B(fMM(n)),', el ',B(fP(n/v)),' de las ventas.');
+  drawTable(rows);drawChart(rows);
+}
+
+function drawTable(rows){
+  const t=$('#eerr'),th=t.tHead,tb=t.tBodies[0];th.replaceChildren();tb.replaceChildren();
+  const hr=document.createElement('tr');const H=(x,c)=>{const e=document.createElement('th');e.textContent=x;if(c)e.className=c;hr.append(e)};
+  H('Concepto');meses.forEach(m=>{H(mLab(m));H('%','p')});H('Total','tt');H('%','p');th.append(hr);
+  const by=k=>rows.find(x=>x.linea===k),order=[];
+  ['ventas','merc','sueldos','bruto','otros'].forEach(k=>order.push(by(k)));
+  if(open.has('otros'))rows.filter(x=>x.nivel===2).sort((a,b)=>a.total-b.total).forEach(c=>{order.push(c);
+    if(open.has(c.linea))rows.filter(x=>x.nivel===3&&x.linea.startsWith(c.linea+'|')&&Math.abs(x.total)>0.5).sort((a,b)=>a.total-b.total).forEach(p=>order.push(p))});
+  order.push(by('neto'));
+  const tog=k=>{open.has(k)?open.delete(k):open.add(k);drawTable(rows)};
+  order.forEach(x=>{
+    const tr=document.createElement('tr'),res=x.linea==='bruto'||x.linea==='neto';
+    tr.className='n'+x.nivel+(res?' res':'');
+    const td0=document.createElement('td');
+    if(x.linea==='otros'){const g=document.createElement('button');g.className='tg';g.setAttribute('aria-label','Abrir otros gastos');g.textContent=open.has('otros')?'▾':'▸';g.onclick=()=>tog('otros');td0.append(g)}
+    if(x.nivel===2){tr.classList.add('cl');tr.tabIndex=0;const g=document.createElement('span');g.className='tg';g.textContent=open.has(x.linea)?'▾':'▸';td0.append(g);
+      tr.onclick=()=>tog(x.linea);tr.onkeydown=e=>{if(e.key==='Enter')tog(x.linea)}}
+    if(LINKS[x.linea]){const a=document.createElement('a');a.className='lk';a.href=href(x.linea);a.textContent=x.etiqueta;td0.append(a)}
+    else td0.append(x.etiqueta);
+    if(x.linea==='sueldos'){const s=document.createElement('span');s.className='sub';s.textContent=' (sin sindicato)';td0.append(s)}
+    tr.append(td0);
+    const C=(val,c,pc)=>{const e=document.createElement('td');e.textContent=pc?fP(val):fM(val);if(c)e.className=c;if(res&&!pc&&val<0)e.classList.add('neg');tr.append(e)};
+    meses.forEach(m=>{C(x.v[m]);C(x.p[m],'p',1)});C(x.total,'tt');C(x.pt,'p',1);
+    tb.append(tr)});
+}
+
+function drawChart(rows){
+  const box=$('#chart'),leg=$('#leg'),tip=$('#tip');box.replaceChildren();leg.replaceChildren();
+  if(typeof d3==='undefined'){box.textContent='No se pudo cargar la librería del gráfico (requiere conexión).';return}
+  const L=k=>rows.find(r=>r.linea===k);
+  const d=meses.map(m=>({mes:m,ventas:L('ventas').v[m],bruto:L('bruto').v[m],neto:L('neto').v[m],mg:L('neto').p[m]||0}));
+  const cs=getComputedStyle(document.documentElement),col=n=>cs.getPropertyValue(n).trim();
+  const ser=[['bruto','Resultado bruto',col('--c-bruto')],['neto','Resultado neto',col('--c-neto')]],lc=col('--gold'),mu=col('--muted'),ln=col('--line');
+  const W=Math.max(320,box.clientWidth),Hh=290;
+  const y=d3.scaleLinear(d3.extent(d.flatMap(x=>[x.bruto,x.neto,0])),[Hh-28,12]).nice();
+  const yp=d3.scaleLinear(d3.extent(d.map(x=>x.mg).concat([0])),[Hh-28,12]).nice();
+  const svg=d3.select(box).append('svg').attr('width','100%').attr('viewBox',`0 0 ${W} ${Hh}`).style('font-family','Barlow,sans-serif');
+  const meas=(arr,f)=>{const g=svg.append('g'),t=g.selectAll('text').data(arr).join('text').attr('font-size',11).text(f);const w=d3.max(t.nodes(),n=>n.getComputedTextLength())||0;g.remove();return w};
+  const fy=v=>nf1.format(v/1e6),fyp=v=>Math.round(v*100)+' %';
+  const ml=10+meas(y.ticks(5),fy),mr=10+meas(yp.ticks(5),fyp);
+  const x=d3.scaleBand(d.map(r=>r.mes),[ml,W-mr]).padding(.25),x1=d3.scaleBand(ser.map(s=>s[0]),[0,x.bandwidth()]).padding(.1);
+  svg.append('g').selectAll('line').data(y.ticks(5)).join('line').attr('x1',ml).attr('x2',W-mr).attr('y1',y).attr('y2',y).attr('stroke',ln);
+  svg.append('g').selectAll('text').data(y.ticks(5)).join('text').attr('x',ml-6).attr('y',y).attr('dy','.32em').attr('text-anchor','end').attr('font-size',11).attr('fill',mu).text(fy);
+  svg.append('g').selectAll('text').data(yp.ticks(5)).join('text').attr('x',W-mr+6).attr('y',yp).attr('dy','.32em').attr('font-size',11).attr('fill',mu).text(fyp);
+  svg.append('line').attr('x1',ml).attr('x2',W-mr).attr('y1',y(0)).attr('y2',y(0)).attr('stroke',mu);
+  svg.append('g').selectAll('text').data(d).join('text').attr('x',r=>x(r.mes)+x.bandwidth()/2).attr('y',Hh-8).attr('text-anchor','middle').attr('font-size',11).attr('fill',mu).text(r=>mLab(r.mes));
+  svg.append('g').selectAll('g').data(d).join('g').attr('transform',r=>`translate(${x(r.mes)},0)`).selectAll('rect').data(r=>ser.map(s=>({k:s[0],v:r[s[0]],c:s[2]}))).join('rect')
+    .attr('x',s=>x1(s.k)).attr('width',Math.min(32,x1.bandwidth())).attr('y',s=>Math.min(y(s.v),y(0))).attr('height',s=>Math.abs(y(s.v)-y(0))).attr('rx',3).attr('fill',s=>s.c);
+  svg.append('path').datum(d).attr('fill','none').attr('stroke',lc).attr('stroke-width',2).attr('stroke-linecap','round').attr('stroke-linejoin','round').attr('d',d3.line(r=>x(r.mes)+x.bandwidth()/2,r=>yp(r.mg)));
+  svg.append('g').selectAll('circle').data(d).join('circle').attr('cx',r=>x(r.mes)+x.bandwidth()/2).attr('cy',r=>yp(r.mg)).attr('r',3.5).attr('fill',lc);
+  svg.append('g').selectAll('rect').data(d).join('rect').attr('x',r=>x(r.mes)).attr('width',x.bandwidth()).attr('y',0).attr('height',Hh).attr('fill','transparent')
+    .on('mousemove',(ev,r)=>{tip.hidden=false;tip.replaceChildren();const h=document.createElement('div');h.className='h';h.textContent=MESL[+r.mes.slice(5)-1];tip.append(h);
+      [['ventas','Ventas',null],...ser,['mg','Margen neto',lc]].forEach(([k,l,c])=>{const e=document.createElement('div');if(c){const i=document.createElement('i');i.style.background=c;e.append(i)}e.append(l+': '+(k==='mg'?fP(r[k]):fMM(r[k])));tip.append(e)});
+      const px=ev.pageX,py=ev.pageY;tip.style.left=Math.min(px+12,document.documentElement.scrollWidth-tip.offsetWidth-8)+'px';tip.style.top=(py+12)+'px'})
+    .on('mouseleave',()=>{tip.hidden=true});
+  [...ser,[null,'Margen neto (%)',lc]].forEach(s=>{const sp=document.createElement('span'),i=document.createElement('i');i.style.background=s[2];sp.append(i,s[1]);leg.append(sp)});
+}
+$('#pie').textContent='Generado el '+GENERADO+' a partir del tablero de ventas 2026 y del tablero de compras y gastos.';
+draw();
+let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>drawChart(E[vista]),150)});
+})();
+</script>
+</body>
+</html>
