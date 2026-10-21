@@ -34,11 +34,12 @@ header.banda .logo{width:150px;color:var(--gold);flex:none;margin-bottom:12px}
 .banda-txt h1{font-weight:600;font-size:1.45rem;line-height:1.1;color:var(--gold)}
 .banda-txt .sub{color:var(--gold);opacity:.75;font-size:.82rem;margin-top:2px}
 nav.tabs{display:flex;gap:4px;margin-top:14px;overflow-x:auto}
-nav.tabs button{font:600 .8rem/1 Manrope,system-ui,sans-serif;letter-spacing:.07em;text-transform:uppercase;padding:12px 12px 13px;border:0;border-bottom:2px solid transparent;background:transparent;color:var(--gold);opacity:.7;cursor:pointer;white-space:nowrap}
-nav.tabs button.on{opacity:1;border-bottom-color:var(--gold)}
-nav.tabs button:hover{opacity:1}
+nav.tabs button{font:600 .8rem/1 Manrope,system-ui,sans-serif;letter-spacing:.07em;text-transform:uppercase;padding:12px 12px 13px;border:0;border-bottom:2px solid transparent;background:transparent;color:#cdbb8f;cursor:pointer;white-space:nowrap}
+nav.tabs button.on{color:var(--gold);border-bottom-color:var(--gold)}
+nav.tabs button:hover{color:var(--gold)}
 /* filtros */
-.filtros{display:flex;flex-wrap:wrap;gap:10px 12px;align-items:flex-end;margin:14px 0}
+.filtros{display:flex;flex-wrap:wrap;gap:10px 12px;align-items:flex-end;margin:0 0 16px}
+#k-top{margin-top:14px}
 .filtros label,.filtros .grp{display:flex;flex-direction:column;gap:4px;font-size:.74rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .filtros select{font:400 .9rem Manrope,system-ui,sans-serif;text-transform:none;letter-spacing:0;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--fg);min-width:112px}
 .btn{font:500 .9rem Manrope,system-ui,sans-serif;padding:6px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--fg);cursor:pointer}
@@ -121,6 +122,7 @@ footer b{color:var(--fg);font-weight:500}
     </nav>
   </div>
 </header>
+<div class="kpis" id="k-top"></div>
 <div class="filtros">
   <div class="grp">Montos<div class="seg" id="segBase" role="group" aria-label="Montos"><button data-v="bni" class="on" title="Ventas con IVA, netas de descuentos e invitaciones">Con IVA</button><button data-v="neta" title="Venta neta total: sin IVA, descuentos ni invitaciones">Sin IVA</button></div></div>
   <input type="hidden" id="fBase" value="bni">
@@ -132,7 +134,6 @@ footer b{color:var(--fg);font-weight:500}
   <label>Hasta mes<select id="fHasta"></select></label>
   <button class="btn" id="fReset">Limpiar filtros</button>
 </div>
-<div class="kpis" id="k-top"></div>
 
 <main>
 <!-- RESUMEN -->
@@ -281,11 +282,15 @@ function hbarCfg(labels,datasets,opts={}){
   return c;
 }
 function doughnut(id,map,fmt=money){
-  // barras horizontales de un solo color (guía: hasta 3 series), ordenadas de mayor a menor
+  // composición: barras horizontales de un solo color, de mayor a menor, con valor y % al final de cada barra
   const e=[...map.entries()].filter(x=>x[1]).sort((a,b)=>b[1]-a[1]); const tot=sum(e,x=>x[1]);
   $(id).parentElement.style.height=Math.max(140,e.length*36+46)+'px';
-  chart(id,{type:'bar',_fmt:fmt,data:{labels:e.map(x=>x[0]),datasets:[{label:'',data:e.map(x=>x[1]),backgroundColor:css('--c-serie1'),maxBarThickness:24}]},
-    options:{indexAxis:'y',scales:{x:Object.assign({beginAtZero:true},axisMoney),y:{grid:{display:false},ticks:{autoSkip:false,callback:(v,i)=>e[i][0]+'   '+pct(e[i][1],tot)}}},
+  const etiquetas={id:'etiquetas',afterDatasetsDraw(ch){ const c=ch.ctx, meta=ch.getDatasetMeta(0);
+    c.save(); c.fillStyle=css('--fg'); c.font='500 12px Manrope,system-ui,sans-serif'; c.textBaseline='middle'; c.textAlign='left';
+    meta.data.forEach((bar,i)=>{ const v=e[i][1]; c.fillText(moneyS(v)+'   '+pct(v,tot),bar.x+8,bar.y); });
+    c.restore(); }};
+  chart(id,{type:'bar',_fmt:fmt,plugins:[etiquetas],data:{labels:e.map(x=>x[0]),datasets:[{label:'',data:e.map(x=>x[1]),backgroundColor:css('--c-serie1'),maxBarThickness:24}]},
+    options:{indexAxis:'y',layout:{padding:{right:130}},scales:{x:Object.assign({beginAtZero:true},axisMoney),y:{grid:{display:false},ticks:{autoSkip:false}}},
       plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>' '+fmt(c.raw)+'  ('+pct(c.raw,tot)+')'}}}}});
 }
 
