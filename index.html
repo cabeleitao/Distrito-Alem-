@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Distrito Alem · Tablero general</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --gold:#b8913f; --gold-soft:#e9dcbc; --green:#10251f; --green-2:#183830;
@@ -20,14 +20,14 @@
   --good:#6cc08f; --bad:#e07a6c; --hl:#262a1f;
   --c-serie1:#4f8f7c; --c-serie2:#d4b06a; --c-serie3:#7d8c82; color-scheme:dark;}}
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--fg);font-family:Barlow,system-ui,sans-serif;font-size:15px}
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:Manrope,system-ui,sans-serif;font-size:15px}
 .wrap{max-width:1400px;margin:0 auto;padding:20px clamp(12px,3vw,32px) 40px;display:flex;flex-direction:column;gap:16px}
-.serif{font-family:'Cormorant Garamond',Georgia,serif}
+.serif{font-family:Manrope,system-ui,sans-serif}
 .num{font-variant-numeric:tabular-nums}
 .hero{display:flex;align-items:center;gap:20px 28px;background:var(--green);color:var(--gold);border-radius:10px;padding:16px 26px;flex-wrap:wrap}
 .logo{width:130px;flex:0 0 auto;color:var(--gold)}
 .hero-r{flex:1 1 20rem;display:flex;align-items:center;justify-content:flex-end;gap:12px;flex-wrap:wrap}
-.hero h1{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:1.7rem;margin:0;color:#efe3c4;flex:1 1 auto}
+.hero h1{font-family:Manrope,system-ui,sans-serif;font-weight:600;font-size:1.45rem;letter-spacing:-.01em;margin:0;color:#efe3c4;flex:1 1 auto}
 select,.btn{font:inherit;font-size:.92rem;padding:7px 12px;border-radius:8px;border:1px solid rgba(198,163,90,.45);background:rgba(255,255,255,.05);color:#efe3c4;cursor:pointer}
 select option{color:#1b1f1c}
 .btn:hover{border-color:var(--gold)}
@@ -41,9 +41,9 @@ select option{color:#1b1f1c}
 .kpi{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:10px;padding:16px 18px;color:inherit;text-decoration:none;display:block}
 a.kpi:hover,.clk:hover{border-color:var(--gold)}
 .clk{cursor:pointer}
-.k{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
+.k{font-size:.74rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.07em}
 .k .ar{color:var(--gold);text-transform:none}
-.kv{font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;font-size:2.2rem;margin:4px 0 2px;font-variant-numeric:lining-nums tabular-nums;line-height:1.1}
+.kv{font-family:Manrope,system-ui,sans-serif;font-weight:700;letter-spacing:-.02em;font-size:2rem;margin:4px 0 2px;font-variant-numeric:lining-nums tabular-nums;line-height:1.1}
 .ks{font-size:.86rem;color:var(--muted)}
 .up{color:var(--good)} .dn{color:var(--bad)}
 .sub{color:var(--muted);font-weight:400;font-size:.82rem}
@@ -54,11 +54,11 @@ a.kpi:hover,.clk:hover{border-color:var(--gold)}
 .pe-bar .ml{position:absolute;top:-26px;transform:translateX(-50%);font-size:.8rem;color:var(--muted);white-space:nowrap}
 .pe-ax{display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted)}
 .tpc{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,9rem),1fr));gap:12px;margin-top:4px}
-.tpc .kv{font-size:1.8rem}
+.tpc .kv{font-size:1.6rem}
 .c100{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,10rem),1fr));gap:16px}
 .c100 a,.c100 div.it{color:inherit;text-decoration:none;display:block;padding:10px 12px;border-radius:8px;border:1px solid transparent}
 .c100 a:hover{border-color:var(--gold);background:var(--hl)}
-.c100 .v{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.7rem;font-weight:500;margin:2px 0 6px}
+.c100 .v{font-family:Manrope,system-ui,sans-serif;font-size:1.5rem;font-weight:700;letter-spacing:-.02em;margin:2px 0 6px}
 .c100 .b{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
 .c100 .b i{display:block;height:6px;background:var(--gold)}
 .c100 .d{font-size:.8rem;margin-top:5px}
@@ -67,7 +67,7 @@ a.kpi:hover,.clk:hover{border-color:var(--gold)}
 .alert .t{font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.07em;color:var(--gold);margin:0 0 4px}
 .cta{display:flex;justify-content:center}
 .cta .btn{font-size:1rem;padding:10px 20px}
-h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:1.45rem;margin:0 0 4px}
+h2{font-family:Manrope,system-ui,sans-serif;font-weight:700;font-size:1.2rem;letter-spacing:-.01em;margin:0 0 4px}
 .note{font-size:.82rem;color:var(--muted);margin:0 0 14px}
 .bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
@@ -76,7 +76,7 @@ h2{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:1.45
 .seg button[aria-pressed=true]{background:var(--green-2);color:var(--gold)}
 .per{color:var(--muted);font-size:.85rem}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:14px}
-.kpis .kv{font-size:1.9rem}
+.kpis .kv{font-size:1.75rem}
 .tw{overflow-x:auto}
 table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:.85rem}
 th,td{padding:7px 8px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--line)}
@@ -108,7 +108,7 @@ td.neg{color:var(--bad)}
 .modal[hidden]{display:none}
 .dlg{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px;width:min(480px,100%);max-height:90vh;overflow:auto}
 .dlg-h{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
-.dlg-h h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:1.35rem;font-weight:600;margin:0}
+.dlg-h h3{font-family:Manrope,system-ui,sans-serif;font-size:1.15rem;font-weight:700;margin:0}
 .x{background:none;border:1px solid var(--line);border-radius:8px;color:var(--fg);font:inherit;padding:3px 10px;cursor:pointer}
 .dlg table td{white-space:normal;font-size:.9rem}
 .dlg table td:first-child{position:static;min-width:0}
@@ -498,7 +498,7 @@ function drawChart(rows){
   const W=Math.max(320,box.clientWidth),Hh=290;
   const y=d3.scaleLinear(d3.extent(d.flatMap(x=>[x.bruto,x.neto,0])),[Hh-28,12]).nice();
   const yp=d3.scaleLinear(d3.extent(d.map(x=>x.mg).concat([0])),[Hh-28,12]).nice();
-  const svg=d3.select(box).append('svg').attr('width','100%').attr('viewBox',`0 0 ${W} ${Hh}`).style('font-family','Barlow,sans-serif');
+  const svg=d3.select(box).append('svg').attr('width','100%').attr('viewBox',`0 0 ${W} ${Hh}`).style('font-family','Manrope,sans-serif');
   const meas=(arr,f)=>{const g=svg.append('g'),t=g.selectAll('text').data(arr).join('text').attr('font-size',11).text(f);const w=d3.max(t.nodes(),n=>n.getComputedTextLength())||0;g.remove();return w};
   const fy=v=>nf1.format(v/1e6),fyp=v=>Math.round(v*100)+' %';
   const ml=10+meas(y.ticks(5),fy),mr=10+meas(yp.ticks(5),fyp);
